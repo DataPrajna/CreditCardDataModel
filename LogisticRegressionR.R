@@ -43,7 +43,7 @@ fitted_results_testing <- ifelse(fitted_results_testing > 0.5,1,0)
 testing_data_missclassified <- mean(fitted_results_testing != test_data$default.payment.next.month)
 print(paste(' Testing Accuracy', 1-misClassificError))
 
-#ROC Curve Testing, auc > 0.5, good model
+#ROC Curve Testing, auc > 0.5, good prediction rate
 
 library(ROCR)
 p <- predict(glmModel, newdata=test_data, type="response")
@@ -54,6 +54,7 @@ plot(prf, lwd = 2, main = "Area Under Curve")
 auc <- performance(pr, measure = "auc")
 auc <- auc@y.values[[1]]
 print(paste('Area under Curve', auc))
+
 
 
 
