@@ -1,9 +1,20 @@
 #LogisticRegression for Kaggle data
 
-
+library('ggplot2') # visualization
+library('ggthemes') # visualization
+library('scales') # visualization
+library('dplyr') # data manipulation
+library('mice') # imputation
+library('randomForest') # classification algorithm
+library(gtools) # for discretisation
+library(corrplot)
+library(Hmisc)
+library(devtools)
+library(PerformanceAnalytics)
+library(FactoMineR)
 
 #Load data from csv file
-data <- read.csv("C:/KaggleCompetitionOperantAi/UCI_Credit_Card.csv")
+data <- read.csv("C:/DataAnalysisOperantAI/UCI_Credit_Card.csv")
 
 #check dimesion of data
 dim(data)
@@ -38,10 +49,10 @@ print(paste('Training Accuracy', 1 - training_data_missclassified))
 
 #Prediction 
 
-fitted_results_testing <- predict(glmModel1, newdata = test_data, type = 'response')
+fitted_results_testing <- predict(glmModel, newdata = test_data, type = 'response')
 fitted_results_testing <- ifelse(fitted_results_testing > 0.5,1,0)
 testing_data_missclassified <- mean(fitted_results_testing != test_data$default.payment.next.month)
-print(paste(' Testing Accuracy', 1-misClassificError))
+print(paste(' Testing Accuracy', 1-testing_data_missclassified))
 
 #ROC Curve Testing, auc > 0.5, good prediction rate
 
